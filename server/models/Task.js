@@ -11,6 +11,7 @@ const Task = new mongoose.Schema({
     priority: {type: String, required: true},
     attachedFiles: {type: String},
     currentStatus: {type: String, required: true},
+    project: {type:  mongoose.Schema.Types.ObjectId, ref: "Project", required: true}
 
 })
 export default mongoose.model("Task", Task)

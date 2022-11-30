@@ -1,5 +1,14 @@
 .container {
   width: 1140px;
   margin: 0 auto;
-  background: red;
+}
+.project {
+  border: 1px solid grey;
+  padding:  10px;
+  margin-top: 20px;
+  &__title {
+    padding-top: 10px;
+    font-size: 70px;
+    color: #505050;
+  }
 }
