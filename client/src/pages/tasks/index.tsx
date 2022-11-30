@@ -3,7 +3,7 @@ import s from './tasks.module.scss'
 const Tasks: React.FC = () => {
     return (
         <div>
-
+        задача
         </div>
     );
 };
