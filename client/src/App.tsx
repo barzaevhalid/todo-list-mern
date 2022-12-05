@@ -1,7 +1,7 @@
 import React from 'react';
 import  './App.scss'
 import {Routes, Route} from "react-router-dom";
-import Project from "./pages/project";
+import Project from "./pages/projects";
 import Tasks from "./pages/tasks";
 
 const App: React.FC = () => {

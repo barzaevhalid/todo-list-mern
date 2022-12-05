@@ -1,0 +1,60 @@
+@mixin btn {
+  width: 150px;
+  display: block;
+  margin: 15px auto 0;
+  background: rgba(128, 128, 128, 0.13);
+  padding: 10px;
+  transition: all 0.2s;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  &:active {
+    background: rgba(128, 128, 128, 0.04);
+  }
+}
+.container {
+  width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.title {
+  padding-top: 10px;
+  font-size: 70px;
+  color: #505050;
+}
+.project_add_btn {
+  @include btn;
+  margin: 0;
+}
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center ;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  .popup {
+    background: white;
+    width: 400px;
+    height: 200px;
+    padding: 15px;
+    border-radius: 10px;
+    input {
+      width: 100%;
+      padding: 5px;
+      line-height: 20px;
+      font-size: 20px;
+    }
+    textarea {
+      width: 100%;
+      resize: none;
+    }
+    &__button {
+    @include btn
+    }
+  }
+}
+
