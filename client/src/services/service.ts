@@ -22,6 +22,6 @@ export const postProjectsRequest = async  ({title, description}:IProjectsBody): 
 export const patchProjectsRequest = async  (body: IProjectBodyPatch) => {
     return await axios.patch(`http://localhost:5000/api/projects/`)
 }
-export const deleteProjectsRequest = async  (id: string) => {
+export const deleteProjectsRequest = async  (id: string): Promise<IProjectsResponse> => {
     return await axios.delete(`http://localhost:5000/api/projects/${id}`)
 }

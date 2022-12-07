@@ -5,8 +5,12 @@ import createSagaMiddleware from 'redux-saga'
 import {rootWatcher} from "../saga";
 const sagaMiddleware  = createSagaMiddleware()
 const rootReducer = combineReducers({
-    projects: projectReducer,
-    tasks: tasksReducer,
+    projectReducer,
+    tasksReducer,
 })
 export const store = createStore(rootReducer,  applyMiddleware(sagaMiddleware))
 sagaMiddleware.run(rootWatcher)
+
+export type RootState = ReturnType<typeof rootReducer>
+export type AppDispatch = typeof store.dispatch
+

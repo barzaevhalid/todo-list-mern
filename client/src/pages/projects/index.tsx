@@ -1,55 +1,49 @@
 import React, {FormEvent, FormEventHandler, useEffect, useState} from 'react';
 import s from './project.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {asyncAddProjects, asyncSetProjects} from "../../redux/store/reducers/projectReducer";
-
+import {asyncAddProjects, asyncRemoveProject, asyncSetProjects} from "../../redux/store/reducers/projectReducer";
+import remove from "../../Assets/remove.png"
+import Modal from "../../components/modal/modal";
+import {useAppSelector} from "../../hooks";
 const Project: React.FC = () => {
-    //@ts-ignore
-    const projects:[] = useSelector(state => state.projects.projects)
+    const {projects, loading, message} = useAppSelector(state => state.projectReducer)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(asyncAddProjects())
+
     },[])
 
     const [title, setTitle] = useState('')
     const [description, setDesc] = useState('')
 
-    const [modal, setModal] = useState(false)
+    const [modal, setModal] = useState<boolean>(false)
 
     const addProject = (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setModal(false)
         dispatch(asyncSetProjects({title, description}))
     }
+    const removeProject = (id: string) => {
+        dispatch(asyncRemoveProject(id))
+
+    }
     return (
         <div className={s.container}>
             <h1 className={s.title}>Список проектов</h1>
             <button className={s.project_add_btn} onClick={() => setModal(true)}>Добавить проект</button>
-            {modal && <div className={s.modal} onClick={() => setModal(false)}>
-                <div className={s.popup}>
-                    <div className={s.popup__title}></div>
-                    <form
-                        className={s.popup__form}
-                        onClick={(e) => e.stopPropagation() }
-                        onSubmit={(e:FormEvent<HTMLFormElement>) => addProject(e)}>
-                        <label>
-                            Введите название проекта
-                            <input
-                                type="text"
-                                className={s.popup__project_name}
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)} />
-                        </label>
-                            <div>Введите описание проекта</div>
-                            <textarea className={s.popup__description} value={description} onChange={(e) => setDesc(e.target.value)}></textarea>
-
-                        <button className={s.popup__button} type={"submit"}>Создать</button>
-                    </form>
+            {modal && <Modal setDesc={setDesc} setModal={setModal} addProject={addProject} setTitle={setTitle} title={title} description={description}/>}
+            {loading && <div>Загрузка</div> }
+            {projects.map((project) => {
+                return <div key={project._id} className={s.project}>
+                    <div className={s.project__content}>
+                        <div className={s.project__content_text}>
+                            <div className={s.project__title}>{project.title}</div>
+                            <div className={s.project__description}>{project.description}</div>
+                        </div>
+                        <button className={s.project__fix}>Изменить</button>
+                    </div>
+                    <button className={s.project__removeBtn} onClick={() => removeProject(project._id)}><img src={remove} alt=""/></button>
                 </div>
-            </div>
-            }
-            {projects && projects.map((i:any) => {
-                return <div key={i._id}>{i.title}</div>
             })}
         </div>
     );

@@ -28,7 +28,8 @@ class ProjectController  {
             if(!deletedProject) {
                 return res.status(404).json({message: "Нет такого проекта"})
             }
-            return res.status(200).json({message: "Проект удален"})
+            const projects = await  Project.find()
+            return res.status(200).json({message: "Проект удален",projects})
         } catch (e) {
             res.status(500).json(e)
         }
